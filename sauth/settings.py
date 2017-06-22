@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -25,7 +24,7 @@ SECRET_KEY = 'ik2*cjy69)&ss3#0=n&^$dyn(#)q=1jt9x4hwlt#c40#*3uc0l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.1.1']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 #static files root
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
@@ -38,12 +37,15 @@ INSTALLED_APPS = [
     #'material',
     #'material.frontend',
     #'material.admin',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -83,9 +85,9 @@ WSGI_APPLICATION = 'sauth.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sauthdb',
+        'NAME': 'sauthmasterdb',
         'USER': 'root',
-        'PASSWORD': 'linksmart-smartdna',
+        'PASSWORD': 'LinkSmart@123',
         'HOST': '',
         'PORT': '',
     }
@@ -130,3 +132,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
