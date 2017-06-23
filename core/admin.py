@@ -12,10 +12,20 @@ class VerificationAdmin(admin.ModelAdmin):
 	ordering =  ('-scan_time',)
 
 class RegistrationAdmin(admin.ModelAdmin):
-	list_display = ('asset_code','scan_time','location','product_details')
+	list_display = ('asset_code','scan_time','location','product_details','active')
 	list_filter = ('location',)
 	search_fields = ('asset_code',)
 	ordering =  ('-scan_time',)
+	actions = ['release']
+
+	def release(self, request, queryset):
+		rows_updated = queryset.update(active=False)
+		if rows_updated == 1:
+			message_bit = "1 record"
+		else:
+			message_bit = "%s records" % rows_updated
+		self.message_user(request, "%s successfully released." % message_bit)
+	release.short_description = "Release selected assets"
 
 admin.site.register(Verification,VerificationAdmin)
 admin.site.register(Registration,RegistrationAdmin)

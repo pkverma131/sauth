@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from rest_framework import serializers, viewsets
 from .forms import FetchForm
-from core.models import Verification
+from core.models import Verification,Registration
 
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -29,10 +29,10 @@ def fetch(request):
         # check whether it's valid:
         if form.is_valid():
             asset_code = form.cleaned_data['asset_code']
-            vobjs=Verification.objects.filter(asset_code=asset_code,status=1).order_by('-scan_time')
-            if vobjs.count()>0:
-            	v=vobjs[0]
-            	data=v.get_credentials()
+            robjs=Registration.objects.filter(asset_code=asset_code).order_by('-scan_time')
+            if robjs.count()>0:
+            	r=robjs[0]
+            	data=r.get_credentials()
             else:
             	data='none'
     return render_to_response('raw.html', {'data': data})
