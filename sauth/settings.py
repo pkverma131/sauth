@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     #'material',
     #'material.frontend',
     #'material.admin',
+    'django_crontab',
     'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -85,9 +86,9 @@ WSGI_APPLICATION = 'sauth.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sauthmasterdb',
+        'NAME': 'sauthdb',
         'USER': 'root',
-        'PASSWORD': 'LinkSmart@123',
+        'PASSWORD': 'linksmart-smartdna',
         'HOST': '',
         'PORT': '',
     }
@@ -140,3 +141,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+CRONJOBS = [
+    ('*/5 * * * *', 'core.cron.counter_job')
+]
